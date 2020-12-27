@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "test": "yarn test:unit"
+    "test": "yarn test:unit",
+    "watch": "yarn test --watch"
   },
   "dependencies": {
     "core-js": "^3.6.5",
