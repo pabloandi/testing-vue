@@ -1,11 +1,14 @@
 import { mount } from '@vue/test-utils';
 import expect from 'expect';
 import Question from '@/components/Question';
+import moxios from 'moxios';
 
 describe('Question', () => {
     let wrapper;
 
     beforeEach(() => {
+        moxios.install();
+
         wrapper = mount(Question, {
             propsData: {
                 dataQuestion: {
@@ -14,6 +17,11 @@ describe('Question', () => {
                 }
             }
         });
+
+    });
+
+    afterEach(() => {
+        moxios.uninstall();
     });
 
     it('presents the title and the body', () => {
@@ -36,24 +44,36 @@ describe('Question', () => {
         expect(wrapper.contains('#edit')).toBe(false);
     });
 
-    it('updates the question after editing', async () => {
-        click('#edit');
+    it.only('updates the question after editing', async () => {
+        await click('#edit');
         
         await wrapper.vm.$nextTick();
 
         type('input[name=title]', 'Changed title');
         type('textarea[name=body]', 'Changed body');
 
-        click('#update');
+        moxios.stubRequest(/questions\/\d+/, {
+            status: 200,
+            response: {
+                title: 'Changed title',
+                body: 'Changed body',
+            }
+        });
+
+        await click('#update');
         
+        await wrapper.vm.$nextTick();
         await wrapper.vm.$nextTick();
 
         see('Changed title');
         see('Changed body');
 
+        see('Your question has been updated.');
+        
+
     });
 
-    it.only('can cancel out of editing mode', async () => {
+    it('can cancel out of editing mode', async () => {
         click('#edit');
 
         await wrapper.vm.$nextTick();
