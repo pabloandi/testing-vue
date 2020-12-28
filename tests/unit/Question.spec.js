@@ -44,7 +44,7 @@ describe('Question', () => {
         expect(wrapper.contains('#edit')).toBe(false);
     });
 
-    it.only('updates the question after editing', async () => {
+    it('updates the question after editing', async () => {
         await click('#edit');
         
         await wrapper.vm.$nextTick();

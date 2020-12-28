@@ -22,10 +22,12 @@
     "@vue/test-utils": "^1.0.3",
     "axios": "^0.21.1",
     "chai": "^4.1.2",
+    "dayjs": "^1.9.8",
     "expect": "^26.6.2",
     "moxios": "^0.4.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
+    "sinon": "^9.2.2",
     "vue-template-compiler": "^2.6.11"
   }
 }
