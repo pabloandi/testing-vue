@@ -4,8 +4,7 @@ import expect from 'expect';
 
 describe('Counter', () => {
     
-    let wrapper; 
-    let vm;
+    let wrapper,vm;
 
     beforeEach(() => {
         wrapper = mount(Counter);
@@ -33,9 +32,10 @@ describe('Counter', () => {
      it('never show the decrement button when counter is 0', async () => {
         expect(wrapper.vm.count).toBe(0);
         expect(wrapper.find('.decrement').isVisible()).toBe(false);
-        await wrapper.setData({
+        wrapper.setData({
             count: 5
         });
+        await vm.$nextTick();
         expect(wrapper.vm.count).toBe(5);
             
         expect(wrapper.find('.decrement').isVisible()).toBe(true);
